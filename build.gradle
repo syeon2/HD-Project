@@ -54,7 +54,7 @@ dependencies {
     // Persistence
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
-    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
 
     // Network
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
@@ -92,9 +92,6 @@ sourceSets {
 }
 
 configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
     querydsl.extendsFrom compileClasspath
 }
 
@@ -112,7 +109,11 @@ checkstyle {
     configFile = file("${rootDir}/config/checkstyle/naver-checkstyle-rules.xml")
     configProperties = ["suppressionFile": "${rootDir}/config/checkstyle/naver-checkstyle-suppressions.xml"]
     toolVersion = "10.12.2"
+
+    sourceSets = [sourceSets.main]
 }
+
+checkstyleMain.source = fileTree('src/main/java')
 
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
