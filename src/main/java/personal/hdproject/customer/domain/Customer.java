@@ -13,6 +13,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import personal.hdproject.customer.service.request.CreateCustomerServiceRequest;
 import personal.hdproject.util.wrapper.BaseEntity;
 
 @Getter
@@ -51,5 +52,15 @@ public class Customer extends BaseEntity {
 		this.nickname = nickname;
 		this.phone = phone;
 		this.grade = grade;
+	}
+
+	public static Customer toEntity(CreateCustomerServiceRequest request, String encryptedPassword) {
+		return Customer.builder()
+			.email(request.getEmail())
+			.password(encryptedPassword)
+			.nickname(request.getNickname())
+			.phone(request.getPhone())
+			.grade(Grade.BASIC)
+			.build();
 	}
 }
