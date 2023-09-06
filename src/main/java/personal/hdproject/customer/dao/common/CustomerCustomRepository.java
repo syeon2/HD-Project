@@ -1,6 +1,6 @@
 package personal.hdproject.customer.dao.common;
 
-public interface CustomeCustomRepository {
+public interface CustomerCustomRepository {
 
 	Long updateNickname(Long customerId, String nickname);
 

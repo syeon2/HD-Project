@@ -7,12 +7,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
-import personal.hdproject.customer.dao.common.CustomeCustomRepository;
+import personal.hdproject.customer.dao.common.CustomerCustomRepository;
 import personal.hdproject.customer.domain.QCustomer;
 
 @Repository
 @RequiredArgsConstructor
-public class CustomerRepositoryImpl implements CustomeCustomRepository {
+public class CustomerRepositoryImpl implements CustomerCustomRepository {
 
 	private final JPAQueryFactory jpaQueryFactory;
 	private final QCustomer customer = QCustomer.customer;
