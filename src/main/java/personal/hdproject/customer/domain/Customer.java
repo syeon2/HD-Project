@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,17 +18,18 @@ import personal.hdproject.util.wrapper.BaseEntity;
 @Getter
 @Entity
 @Table(name = "customer")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer extends BaseEntity {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "customer_id", columnDefinition = "bigint") // unsigned
 	private Long id;
 
 	@Column(columnDefinition = "varchar(255)", unique = true)
 	private String email;
 
-	@Column(columnDefinition = "char(60)")
+	@Column(columnDefinition = "char(64)")
 	private String password;
 
 	@Column(columnDefinition = "varchar(40)")
