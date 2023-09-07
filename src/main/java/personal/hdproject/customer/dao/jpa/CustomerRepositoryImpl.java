@@ -1,5 +1,7 @@
 package personal.hdproject.customer.dao.jpa;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +23,9 @@ public class CustomerRepositoryImpl implements CustomerCustomRepository {
 	@Modifying(clearAutomatically = true)
 	@Override
 	public Long updateNickname(Long customerId, String nickname) {
-		return jpaQueryFactory.update(customer).set(customer.nickname, nickname)
+		return jpaQueryFactory.update(customer)
+			.set(customer.nickname, nickname)
+			.set(customer.updatedAt, LocalDateTime.now())
 			.where(customer.id.eq(customerId)).execute();
 	}
 
@@ -29,7 +33,9 @@ public class CustomerRepositoryImpl implements CustomerCustomRepository {
 	@Modifying(clearAutomatically = true)
 	@Override
 	public Long updatePhone(Long customerId, String phone) {
-		return jpaQueryFactory.update(customer).set(customer.phone, phone)
+		return jpaQueryFactory.update(customer)
+			.set(customer.phone, phone)
+			.set(customer.updatedAt, LocalDateTime.now())
 			.where(customer.id.eq(customerId)).execute();
 	}
 }
