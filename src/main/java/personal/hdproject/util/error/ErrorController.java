@@ -20,8 +20,8 @@ public class ErrorController {
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ApiResult<Void> handlerValidationRequest(MethodArgumentNotValidException e) {
-		return ApiResult.onFailure(e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+	public ApiResult<Void> handlerValidationRequest(MethodArgumentNotValidException exception) {
+		return ApiResult.onFailure(exception.getBindingResult().getAllErrors().get(0).getDefaultMessage());
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -36,10 +36,10 @@ class CustomerProfileControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-			post("/api/v1/customer")
-				.content(objectMapper.writeValueAsString(request))
-				.contentType(MediaType.APPLICATION_JSON)
-		)
+				post("/api/v1/customer")
+					.content(objectMapper.writeValueAsString(request))
+					.contentType(MediaType.APPLICATION_JSON)
+			)
 			.andDo(print())
 			.andExpect(status().isOk());
 	}
@@ -57,10 +57,10 @@ class CustomerProfileControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-			post("/api/v1/customer")
-				.content(objectMapper.writeValueAsString(request))
-				.contentType(MediaType.APPLICATION_JSON)
-		)
+				post("/api/v1/customer")
+					.content(objectMapper.writeValueAsString(request))
+					.contentType(MediaType.APPLICATION_JSON)
+			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
@@ -80,10 +80,10 @@ class CustomerProfileControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-			post("/api/v1/customer")
-				.content(objectMapper.writeValueAsString(request))
-				.contentType(MediaType.APPLICATION_JSON)
-		)
+				post("/api/v1/customer")
+					.content(objectMapper.writeValueAsString(request))
+					.contentType(MediaType.APPLICATION_JSON)
+			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
@@ -103,10 +103,10 @@ class CustomerProfileControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-			post("/api/v1/customer")
-				.content(objectMapper.writeValueAsString(request))
-				.contentType(MediaType.APPLICATION_JSON)
-		)
+				post("/api/v1/customer")
+					.content(objectMapper.writeValueAsString(request))
+					.contentType(MediaType.APPLICATION_JSON)
+			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
@@ -126,10 +126,10 @@ class CustomerProfileControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-			post("/api/v1/customer")
-				.content(objectMapper.writeValueAsString(request))
-				.contentType(MediaType.APPLICATION_JSON)
-		)
+				post("/api/v1/customer")
+					.content(objectMapper.writeValueAsString(request))
+					.contentType(MediaType.APPLICATION_JSON)
+			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
@@ -172,10 +172,10 @@ class CustomerProfileControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-			post("/api/v1/customer")
-				.content(objectMapper.writeValueAsString(request))
-				.contentType(MediaType.APPLICATION_JSON)
-		)
+				post("/api/v1/customer")
+					.content(objectMapper.writeValueAsString(request))
+					.contentType(MediaType.APPLICATION_JSON)
+			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
@@ -195,10 +195,10 @@ class CustomerProfileControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-			post("/api/v1/customer")
-				.content(objectMapper.writeValueAsString(request))
-				.contentType(MediaType.APPLICATION_JSON)
-		)
+				post("/api/v1/customer")
+					.content(objectMapper.writeValueAsString(request))
+					.contentType(MediaType.APPLICATION_JSON)
+			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
@@ -218,10 +218,10 @@ class CustomerProfileControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-			post("/api/v1/customer")
-				.content(objectMapper.writeValueAsString(request))
-				.contentType(MediaType.APPLICATION_JSON)
-		)
+				post("/api/v1/customer")
+					.content(objectMapper.writeValueAsString(request))
+					.contentType(MediaType.APPLICATION_JSON)
+			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
@@ -241,10 +241,10 @@ class CustomerProfileControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-			post("/api/v1/customer")
-				.content(objectMapper.writeValueAsString(request))
-				.contentType(MediaType.APPLICATION_JSON)
-		)
+				post("/api/v1/customer")
+					.content(objectMapper.writeValueAsString(request))
+					.contentType(MediaType.APPLICATION_JSON)
+			)
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
@@ -335,8 +335,8 @@ class CustomerProfileControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-			delete("/api/v1/customer/" + customerId)
-		)
+				delete("/api/v1/customer/" + customerId)
+			)
 			.andDo(print())
 			.andExpect(status().isOk());
 	}

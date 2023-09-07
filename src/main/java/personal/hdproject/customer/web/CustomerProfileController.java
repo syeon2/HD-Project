@@ -29,7 +29,8 @@ public class CustomerProfileController {
 	}
 
 	@PostMapping("/api/v1/customer-nickname/{id}")
-	public ApiResult<Long> changeCustomerNickname(@Valid @RequestBody ChangeNicknameRequest request, @PathVariable Long id) {
+	public ApiResult<Long> changeCustomerNickname(@Valid @RequestBody ChangeNicknameRequest request,
+		@PathVariable Long id) {
 		Long changedCustomerId = customerProfileService.changeNickname(id, request.getNickname());
 
 		return ApiResult.onSuccess(changedCustomerId);
