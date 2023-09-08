@@ -16,6 +16,7 @@ public class RefreshTokenRepositoryImpl implements RefreshTokenRepository {
 		this.redisTemplate = redisTemplate;
 	}
 
+	@Override
 	public void save(Long id, String refreshToken) {
 		redisTemplate.opsForValue().set(id.toString(), refreshToken);
 	}
@@ -25,6 +26,7 @@ public class RefreshTokenRepositoryImpl implements RefreshTokenRepository {
 		redisTemplate.opsForValue().getAndDelete(id);
 	}
 
+	@Override
 	public String getRefreshToken(Long id) {
 		return redisTemplate.opsForValue().get(id.toString());
 	}

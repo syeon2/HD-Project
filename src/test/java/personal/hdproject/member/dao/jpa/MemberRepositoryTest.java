@@ -51,7 +51,7 @@ class MemberRepositoryTest {
 		// given
 		String phone = "00011112222";
 
-		Member member = createMember("1234@gmail.com", "1234", "nickname", phone);
+		Member member = createMember("1234@gmail.com", "12345678", "nickname", phone);
 		Member savedMember = memberRepository.save(member);
 
 		assertThat(savedMember.getPhone()).isEqualTo(phone);
