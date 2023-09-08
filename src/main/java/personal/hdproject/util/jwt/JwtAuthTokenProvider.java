@@ -13,8 +13,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
-import personal.hdproject.customer.dao.jwt.RefreshTokenRepositoryImpl;
-import personal.hdproject.customer.service.response.JWTTokenResponse;
+import personal.hdproject.member.dao.jwt.RefreshTokenRepositoryImpl;
+import personal.hdproject.member.service.response.JWTTokenResponse;
 import personal.hdproject.util.error.exception.ExpiredAccessTokenException;
 import personal.hdproject.util.error.exception.TokenValidationException;
 import personal.hdproject.util.generator.TimeGenerator;
@@ -36,23 +36,23 @@ public class JwtAuthTokenProvider {
 
 	private final RefreshTokenRepositoryImpl refreshTokenRepository;
 
-	public JWTTokenResponse generateToken(Long customerId) {
+	public JWTTokenResponse generateToken(Long memberId) {
 		return JWTTokenResponse.builder()
-			.accessToken(createAccessToken(customerId))
-			.refreshToken(createRefreshToken(customerId))
+			.accessToken(createAccessToken(memberId))
+			.refreshToken(createRefreshToken(memberId))
 			.build();
 	}
 
-	public JWTTokenResponse generateRenewToken(Long customerId, String refreshToken) {
+	public JWTTokenResponse generateRenewToken(Long memberId, String refreshToken) {
 		try {
-			validateRefreshToken(customerId, refreshToken);
+			validateRefreshToken(memberId, refreshToken);
 
 			return JWTTokenResponse.builder()
-				.accessToken(createAccessToken(customerId))
+				.accessToken(createAccessToken(memberId))
 				.build();
 		} catch (ExpiredJwtException exception) {
-			String newAccessToken = createAccessToken(customerId);
-			String newRefreshToken = createRefreshToken(customerId);
+			String newAccessToken = createAccessToken(memberId);
+			String newRefreshToken = createRefreshToken(memberId);
 
 			return JWTTokenResponse.builder()
 				.accessToken(newAccessToken)
@@ -122,8 +122,8 @@ public class JwtAuthTokenProvider {
 		return refreshToken;
 	}
 
-	private void validateRefreshToken(Long customerId, String refreshToken) {
-		String originRefreshToken = refreshTokenRepository.getRefreshToken(customerId);
+	private void validateRefreshToken(Long memberId, String refreshToken) {
+		String originRefreshToken = refreshTokenRepository.getRefreshToken(memberId);
 
 		if (!originRefreshToken.equals(refreshToken)) {
 			throw new TokenValidationException("유효하지 않는 Refresh Token입니다..");
@@ -137,7 +137,7 @@ public class JwtAuthTokenProvider {
 
 		String id = body.get(PAYLOAD_KEY, String.class);
 
-		if (!customerId.toString().equals(id)) {
+		if (!memberId.toString().equals(id)) {
 			throw new TokenValidationException("유효하지 않는 Refresh Token입니다.");
 		}
 	}
