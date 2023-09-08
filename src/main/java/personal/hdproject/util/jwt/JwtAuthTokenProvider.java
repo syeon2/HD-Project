@@ -63,6 +63,21 @@ public class JwtAuthTokenProvider {
 		}
 	}
 
+	public void removeRefreshTokenInStorage(String accessToken) {
+		try {
+			Claims body = Jwts.parserBuilder()
+				.setSigningKey(generateHashingKey())
+				.build()
+				.parseClaimsJws(removeBearer(accessToken))
+				.getBody();
+
+			String id = body.get(PAYLOAD_KEY, String.class);
+			refreshTokenRepository.delete(id);
+		} catch (Exception exception) {
+			throw new TokenValidationException("유효하지 않은 토큰입니다.");
+		}
+	}
+
 	public boolean validateAccessToken(String accessToken) {
 		try {
 			Jwts.parserBuilder()

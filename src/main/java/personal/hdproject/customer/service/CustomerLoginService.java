@@ -28,6 +28,10 @@ public class CustomerLoginService {
 		return SignInCustomerResponse.toResponse(customer, jwtToken);
 	}
 
+	public void logout(String accessToken) {
+		jwtAuthTokenProvider.removeRefreshTokenInStorage(accessToken);
+	}
+
 	public JWTTokenResponse validateAndRenewToken(RefreshTokenRequest request) {
 		return jwtAuthTokenProvider.generateRenewToken(request.getId(), request.getRefreshToken());
 	}

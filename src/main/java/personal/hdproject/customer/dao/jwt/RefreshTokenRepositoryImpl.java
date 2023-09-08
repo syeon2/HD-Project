@@ -20,6 +20,11 @@ public class RefreshTokenRepositoryImpl implements RefreshTokenRepository {
 		redisTemplate.opsForValue().set(id.toString(), refreshToken);
 	}
 
+	@Override
+	public void delete(String id) {
+		redisTemplate.opsForValue().getAndDelete(id);
+	}
+
 	public String getRefreshToken(Long id) {
 		return redisTemplate.opsForValue().get(id.toString());
 	}
