@@ -4,3 +4,14 @@ spring:
     url: jdbc:mysql://localhost:3306/hot_dealicious
     username: root
     password: 1234
+
+redis:
+  refresh_token:
+    host: localhost
+    port: 6379
+
+jwt:
+  header: x-auth-token
+  secret_key: 7c8d3c13bd32be41c39655f87737422920037a5ccf569bf8484511cf5241ceec
+  at-expired_minutes: 5
+  rt-expired_days: 90
