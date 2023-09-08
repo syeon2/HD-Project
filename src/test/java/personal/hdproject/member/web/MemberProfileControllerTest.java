@@ -32,6 +32,7 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.password("12345678")
 			.nickname("nickname")
 			.phone("00011112222")
+			.address("서울 강남구")
 			.build();
 
 		// when  // then
@@ -53,6 +54,7 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.password("12345678")
 			.nickname("nickname")
 			.phone("00011112222")
+			.address("서울 강남구")
 			.build();
 
 		// when  // then
@@ -76,6 +78,7 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.password("12345678")
 			.nickname("nickname")
 			.phone("00011112222")
+			.address("서울 강남구")
 			.build();
 
 		// when  // then
@@ -99,6 +102,7 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.password("1234567")
 			.nickname("nickname")
 			.phone("00011112222")
+			.address("서울 강남구")
 			.build();
 
 		// when  // then
@@ -122,6 +126,7 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.password("")
 			.nickname("nickname")
 			.phone("00011112222")
+			.address("서울 강남구")
 			.build();
 
 		// when  // then
@@ -145,6 +150,7 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.password("12345678")
 			.nickname("")
 			.phone("00011112222")
+			.address("서울 강남구")
 			.build();
 
 		// when  // then
@@ -168,6 +174,7 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.password("12345678")
 			.nickname("nickname")
 			.phone("")
+			.address("서울 강남구")
 			.build();
 
 		// when  // then
@@ -191,6 +198,7 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.password("12345678")
 			.nickname("nickname")
 			.phone("123456789")
+			.address("서울 강남구")
 			.build();
 
 		// when  // then
@@ -214,6 +222,7 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.password("12345678")
 			.nickname("nickname")
 			.phone("123456789012")
+			.address("서울 강남구")
 			.build();
 
 		// when  // then
@@ -237,6 +246,7 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.password("12345678")
 			.nickname("nickname")
 			.phone("123456789a")
+			.address("서울 강남구")
 			.build();
 
 		// when  // then
@@ -249,6 +259,30 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
 			.andExpect(jsonPath("$.message").value("10 ~ 11자리의 숫자만 입력 가능합니다."));
+	}
+
+	@Test
+	@DisplayName(value = "API를 호출하여 새로운 계정을 생성합니다. - 주소는 필수 값입니다.")
+	void createMember_nnAddress() throws Exception {
+		// given
+		CreateMemberRequest request = CreateMemberRequest.builder()
+			.email("1234@gmail.com")
+			.password("12345678")
+			.nickname("nickname")
+			.phone("1234567891")
+			.address("")
+			.build();
+
+		// when  // then
+		mockMvc.perform(
+				post("/api/v1/member")
+					.content(objectMapper.writeValueAsString(request))
+					.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andDo(print())
+			.andExpect(status().isBadRequest())
+			.andExpect(jsonPath("$.data").doesNotExist())
+			.andExpect(jsonPath("$.message").value("주소는 필수 값입니다."));
 	}
 
 	@Test

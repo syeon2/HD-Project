@@ -28,12 +28,16 @@ public class CreateMemberRequest {
 	@Pattern(regexp = "[0-9]{10,11}", message = "10 ~ 11자리의 숫자만 입력 가능합니다.")
 	private final String phone;
 
+	@NotBlank(message = "주소는 필수 값입니다.")
+	private final String address;
+
 	@Builder
-	private CreateMemberRequest(String email, String password, String nickname, String phone) {
+	private CreateMemberRequest(String email, String password, String nickname, String phone, String address) {
 		this.email = email;
 		this.password = password;
 		this.nickname = nickname;
 		this.phone = phone;
+		this.address = address;
 	}
 
 	public CreateMemberServiceRequest toServiceRequest() {
@@ -42,6 +46,7 @@ public class CreateMemberRequest {
 			.password(this.password)
 			.nickname(this.nickname)
 			.phone(this.phone)
+			.address(this.address)
 			.build();
 	}
 }

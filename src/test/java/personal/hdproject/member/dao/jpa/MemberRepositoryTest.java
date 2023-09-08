@@ -25,7 +25,7 @@ class MemberRepositoryTest {
 		// given
 		String nickname = "nickname1";
 
-		Member member = createMember("1235@gmail.com", "12345678", nickname, "00011112222");
+		Member member = createMember("1235@gmail.com", "12345678", nickname, "00011112222", "서울 강남구");
 		Member savedMember = memberRepository.save(member);
 
 		assertThat(savedMember.getNickname()).isEqualTo(nickname);
@@ -51,7 +51,7 @@ class MemberRepositoryTest {
 		// given
 		String phone = "00011112222";
 
-		Member member = createMember("1234@gmail.com", "12345678", "nickname", phone);
+		Member member = createMember("1234@gmail.com", "12345678", "nickname", phone, "서울 강남구");
 		Member savedMember = memberRepository.save(member);
 
 		assertThat(savedMember.getPhone()).isEqualTo(phone);
@@ -71,12 +71,13 @@ class MemberRepositoryTest {
 		);
 	}
 
-	private Member createMember(String mail, String password, String nickname1, String phone) {
+	private Member createMember(String mail, String password, String nickname1, String phone, String address) {
 		return Member.builder()
 			.email(mail)
 			.password(password)
 			.nickname(nickname1)
 			.phone(phone)
+			.address(address)
 			.grade(Grade.BASIC)
 			.build();
 	}

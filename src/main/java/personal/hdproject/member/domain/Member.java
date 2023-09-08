@@ -39,6 +39,9 @@ public class Member extends BaseEntity {
 	@Column(columnDefinition = "varchar(40)", unique = true)
 	private String phone;
 
+	@Column(columnDefinition = "varchar(255)")
+	private String address;
+
 	@Enumerated(EnumType.STRING)
 	@Column(columnDefinition = "varchar(40)")
 	private Grade grade;
@@ -46,11 +49,12 @@ public class Member extends BaseEntity {
 	// TODO: 주문 테이블 - 연관관계 Mapping
 
 	@Builder
-	private Member(String email, String password, String nickname, String phone, Grade grade) {
+	private Member(String email, String password, String nickname, String phone, String address, Grade grade) {
 		this.email = email;
 		this.password = password;
 		this.nickname = nickname;
 		this.phone = phone;
+		this.address = address;
 		this.grade = grade;
 	}
 

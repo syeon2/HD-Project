@@ -43,13 +43,15 @@ class MemberLoginServiceTest {
 		String email = "1234@gmail.com";
 		String password = "12345678";
 		String nickname = "ello";
-
 		String phone = "0001111232";
+		String address = "서울 강남구";
+
 		CreateMemberServiceRequest request = CreateMemberServiceRequest.builder()
 			.email(email)
 			.password(password)
-			.phone(phone)
 			.nickname(nickname)
+			.phone(phone)
+			.address(address)
 			.build();
 
 		memberProfileService.join(request);
@@ -80,13 +82,15 @@ class MemberLoginServiceTest {
 		String email = "1234@gmail.com";
 		String password = "12345678";
 		String nickname = "ello";
-
 		String phone = "0001111232";
+		String address = "서울 강남구";
+
 		CreateMemberServiceRequest request = CreateMemberServiceRequest.builder()
 			.email(email)
 			.password(password)
 			.phone(phone)
 			.nickname(nickname)
+			.address(address)
 			.build();
 
 		memberProfileService.join(request);

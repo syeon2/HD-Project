@@ -38,9 +38,10 @@ class MemberProfileServiceTest {
 		String password = "12345678";
 		String nickname = "nickname";
 		String phone = "00011112222";
+		String address = "서울 강남구";
 
-		CreateMemberServiceRequest createMemberDTO = getCreateMemberServiceRequest(email, password, nickname,
-			phone);
+		CreateMemberServiceRequest createMemberDTO = getCreateMemberServiceRequest(email, password, nickname, phone,
+			address);
 
 		// when
 		Long joinedMemberId = memberProfileService.join(createMemberDTO);
@@ -64,9 +65,10 @@ class MemberProfileServiceTest {
 		String password = "12345678";
 		String nickname = "nickname";
 		String phone = "00011112222";
+		String address = "서울 강남구";
 
 		CreateMemberServiceRequest createMemberDTO = getCreateMemberServiceRequest(email, password, nickname,
-			phone);
+			phone, address);
 
 		// when
 		Long joinedMemberId = memberProfileService.join(createMemberDTO);
@@ -92,9 +94,10 @@ class MemberProfileServiceTest {
 		String password = "12345678";
 		String nickname = "nickname";
 		String phone = "00011112222";
+		String address = "서울 강남구";
 
 		CreateMemberServiceRequest createMemberDTO = getCreateMemberServiceRequest(email, password, nickname,
-			phone);
+			phone, address);
 
 		Long joinMemberId = memberProfileService.join(createMemberDTO);
 
@@ -117,9 +120,10 @@ class MemberProfileServiceTest {
 		String password = "12345678";
 		String nickname = "nickname";
 		String phone = "00011112222";
+		String address = "서울 강남구";
 
 		CreateMemberServiceRequest createMemberDTO = getCreateMemberServiceRequest(email, password, nickname,
-			phone);
+			phone, address);
 
 		Long joinMemberId = memberProfileService.join(createMemberDTO);
 
@@ -144,9 +148,10 @@ class MemberProfileServiceTest {
 		String password = "12345678";
 		String nickname = "nickname";
 		String phone = "00011112222";
+		String address = "서울 강남구";
 
 		CreateMemberServiceRequest createMemberDTO = getCreateMemberServiceRequest(email, password, nickname,
-			phone);
+			phone, address);
 
 		Long joinMemberId = memberProfileService.join(createMemberDTO);
 
@@ -171,9 +176,10 @@ class MemberProfileServiceTest {
 		String password = "12345678";
 		String nickname = "nickname";
 		String phone = "00011112222";
+		String address = "서울 강남구";
 
 		CreateMemberServiceRequest createMemberDTO = getCreateMemberServiceRequest(email, password, nickname,
-			phone);
+			phone, address);
 
 		Long joinMemberId = memberProfileService.join(createMemberDTO);
 
@@ -187,12 +193,13 @@ class MemberProfileServiceTest {
 	}
 
 	private CreateMemberServiceRequest getCreateMemberServiceRequest(String email, String password, String nickname,
-		String phone) {
+		String phone, String address) {
 		return CreateMemberServiceRequest.builder()
 			.email(email)
 			.password(password)
 			.nickname(nickname)
 			.phone(phone)
+			.address(address)
 			.build();
 	}
 }
