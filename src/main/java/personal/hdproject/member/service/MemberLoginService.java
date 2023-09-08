@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import personal.hdproject.member.dao.MemberRepository;
 import personal.hdproject.member.domain.Member;
 import personal.hdproject.member.service.request.SignInMemberServiceRequest;
-import personal.hdproject.member.service.response.JWTTokenResponse;
+import personal.hdproject.member.service.response.JwtTokenResponse;
 import personal.hdproject.member.service.response.SignInMemberResponse;
 import personal.hdproject.member.web.request.RefreshTokenRequest;
 import personal.hdproject.util.error.exception.LoginException;
@@ -23,7 +23,7 @@ public class MemberLoginService {
 
 	public SignInMemberResponse login(SignInMemberServiceRequest request) {
 		Member member = checkAccountAndGetMember(request.getEmail(), request.getEncryptedPassword());
-		JWTTokenResponse jwtToken = jwtAuthTokenProvider.generateToken(member.getId());
+		JwtTokenResponse jwtToken = jwtAuthTokenProvider.generateToken(member.getId());
 
 		return SignInMemberResponse.toResponse(member, jwtToken);
 	}
@@ -32,7 +32,7 @@ public class MemberLoginService {
 		jwtAuthTokenProvider.removeRefreshTokenInStorage(accessToken);
 	}
 
-	public JWTTokenResponse validateAndRenewToken(RefreshTokenRequest request) {
+	public JwtTokenResponse validateAndRenewToken(RefreshTokenRequest request) {
 		return jwtAuthTokenProvider.generateRenewToken(request.getId(), request.getRefreshToken());
 	}
 

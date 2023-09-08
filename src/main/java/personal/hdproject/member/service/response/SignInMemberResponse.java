@@ -8,15 +8,15 @@ import personal.hdproject.member.domain.Member;
 public class SignInMemberResponse {
 
 	private final MemberInfoResponse member;
-	private final JWTTokenResponse token;
+	private final JwtTokenResponse token;
 
 	@Builder
-	public SignInMemberResponse(MemberInfoResponse member, JWTTokenResponse token) {
+	public SignInMemberResponse(MemberInfoResponse member, JwtTokenResponse token) {
 		this.member = member;
 		this.token = token;
 	}
 
-	public static SignInMemberResponse toResponse(Member member, JWTTokenResponse jwtToken) {
+	public static SignInMemberResponse toResponse(Member member, JwtTokenResponse jwtToken) {
 		return SignInMemberResponse.builder()
 			.member(MemberInfoResponse.toMemberResponse(member))
 			.token(jwtToken)

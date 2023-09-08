@@ -17,7 +17,7 @@ import personal.hdproject.util.jwt.JwtAuthTokenProvider;
 public class MemberLoginCheckHandler implements HandlerInterceptor {
 
 	@Value("${jwt.header}")
-	private String AUTH_HEADER;
+	private static String AUTH_HEADER;
 
 	private final JwtAuthTokenProvider jwtAuthTokenProvider;
 

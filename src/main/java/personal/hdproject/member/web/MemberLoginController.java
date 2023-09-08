@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import personal.hdproject.member.service.MemberLoginService;
-import personal.hdproject.member.service.response.JWTTokenResponse;
+import personal.hdproject.member.service.response.JwtTokenResponse;
 import personal.hdproject.member.service.response.SignInMemberResponse;
 import personal.hdproject.member.web.request.RefreshTokenRequest;
 import personal.hdproject.member.web.request.SignInMemberRequest;
@@ -42,8 +42,8 @@ public class MemberLoginController {
 	}
 
 	@PostMapping("/api/v1/member/refresh-token")
-	public ApiResult<JWTTokenResponse> getJWTToken(@Valid @RequestBody RefreshTokenRequest request) {
-		JWTTokenResponse response = memberLoginService.validateAndRenewToken(request);
+	public ApiResult<JwtTokenResponse> getJwtToken(@Valid @RequestBody RefreshTokenRequest request) {
+		JwtTokenResponse response = memberLoginService.validateAndRenewToken(request);
 
 		return ApiResult.onSuccess(response);
 	}

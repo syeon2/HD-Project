@@ -7,19 +7,19 @@ import lombok.Getter;
 
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class JWTTokenResponse {
+public class JwtTokenResponse {
 
 	private final String accessToken;
 	private final String refreshToken;
 
 	@Builder
-	private JWTTokenResponse(String accessToken, String refreshToken) {
+	private JwtTokenResponse(String accessToken, String refreshToken) {
 		this.accessToken = accessToken;
 		this.refreshToken = refreshToken;
 	}
 
-	public static JWTTokenResponse toTokenResponse(String accessToken, String refreshToken) {
-		return JWTTokenResponse.builder()
+	public static JwtTokenResponse toTokenResponse(String accessToken, String refreshToken) {
+		return JwtTokenResponse.builder()
 			.accessToken(accessToken)
 			.refreshToken(refreshToken)
 			.build();

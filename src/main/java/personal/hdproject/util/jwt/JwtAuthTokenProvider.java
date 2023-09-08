@@ -14,7 +14,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import personal.hdproject.member.dao.jwt.RefreshTokenRepositoryImpl;
-import personal.hdproject.member.service.response.JWTTokenResponse;
+import personal.hdproject.member.service.response.JwtTokenResponse;
 import personal.hdproject.util.error.exception.ExpiredAccessTokenException;
 import personal.hdproject.util.error.exception.TokenValidationException;
 import personal.hdproject.util.generator.TimeGenerator;
@@ -24,37 +24,37 @@ import personal.hdproject.util.generator.TimeGenerator;
 public class JwtAuthTokenProvider {
 
 	@Value("${jwt.secret_key}")
-	private String SECRET_KEY;
+	private String secretKey;
 
 	@Value("${jwt.at-expired_minutes}")
-	private Integer ACCESS_TOKEN_EXPIRED_MINUTES;
+	private Integer accessTokenExpiredMinutes;
 
 	@Value("${jwt.rt-expired_days}")
-	private Integer REFRESH_TOKEN_EXPIRED_DAYS;
+	private Integer refreshTokenExpiredDays;
 
 	private static final String PAYLOAD_KEY = "id";
 
 	private final RefreshTokenRepositoryImpl refreshTokenRepository;
 
-	public JWTTokenResponse generateToken(Long memberId) {
-		return JWTTokenResponse.builder()
+	public JwtTokenResponse generateToken(Long memberId) {
+		return JwtTokenResponse.builder()
 			.accessToken(createAccessToken(memberId))
 			.refreshToken(createRefreshToken(memberId))
 			.build();
 	}
 
-	public JWTTokenResponse generateRenewToken(Long memberId, String refreshToken) {
+	public JwtTokenResponse generateRenewToken(Long memberId, String refreshToken) {
 		try {
 			validateRefreshToken(memberId, refreshToken);
 
-			return JWTTokenResponse.builder()
+			return JwtTokenResponse.builder()
 				.accessToken(createAccessToken(memberId))
 				.build();
 		} catch (ExpiredJwtException exception) {
 			String newAccessToken = createAccessToken(memberId);
 			String newRefreshToken = createRefreshToken(memberId);
 
-			return JWTTokenResponse.builder()
+			return JwtTokenResponse.builder()
 				.accessToken(newAccessToken)
 				.refreshToken(newRefreshToken)
 				.build();
@@ -102,7 +102,7 @@ public class JwtAuthTokenProvider {
 			.setHeaderParam("type", "JWT")
 			.setClaims(claims)
 			.signWith(generateHashingKey(), SignatureAlgorithm.HS256)
-			.setExpiration(TimeGenerator.getMinuteInFuture(ACCESS_TOKEN_EXPIRED_MINUTES))
+			.setExpiration(TimeGenerator.getMinuteInFuture(accessTokenExpiredMinutes))
 			.compact();
 	}
 
@@ -114,7 +114,7 @@ public class JwtAuthTokenProvider {
 			.setHeaderParam("type", "JWT")
 			.setClaims(claims)
 			.signWith(generateHashingKey(), SignatureAlgorithm.HS256)
-			.setExpiration(TimeGenerator.getDayInFuture(REFRESH_TOKEN_EXPIRED_DAYS))
+			.setExpiration(TimeGenerator.getDayInFuture(refreshTokenExpiredDays))
 			.compact();
 
 		refreshTokenRepository.save(id, refreshToken);
@@ -147,6 +147,6 @@ public class JwtAuthTokenProvider {
 	}
 
 	private SecretKey generateHashingKey() {
-		return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+		return Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
 	}
 }
