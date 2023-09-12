@@ -17,7 +17,7 @@ import personal.hdproject.util.jwt.JwtAuthTokenProvider;
 public class MemberLoginCheckHandler implements HandlerInterceptor {
 
 	@Value("${jwt.header}")
-	private String AUTH_HEADER;
+	private String authHeader;
 
 	private final JwtAuthTokenProvider jwtAuthTokenProvider;
 
@@ -25,7 +25,7 @@ public class MemberLoginCheckHandler implements HandlerInterceptor {
 	public boolean preHandle(
 		HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-		String accessToken = request.getHeader(AUTH_HEADER);
+		String accessToken = request.getHeader(authHeader);
 
 		return jwtAuthTokenProvider.validateAccessToken(accessToken);
 	}
