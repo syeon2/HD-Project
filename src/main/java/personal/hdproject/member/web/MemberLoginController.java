@@ -25,14 +25,14 @@ public class MemberLoginController {
 
 	private final MemberLoginService memberLoginService;
 
-	@PostMapping("/api/v1/member/sign-in")
+	@PostMapping("/api/v1/auth/sign-in")
 	public ApiResult<SignInMemberResponse> signInMember(@Valid @RequestBody SignInMemberRequest request) {
 		SignInMemberResponse response = memberLoginService.login(request.toServiceRequest());
 
 		return ApiResult.onSuccess(response);
 	}
 
-	@PostMapping("/api/v1/member/sign-out")
+	@PostMapping("/api/v1/auth/sign-out")
 	public ApiResult<String> signOutMember(HttpServletRequest request) {
 		String accessToken = request.getHeader(header);
 
@@ -41,7 +41,7 @@ public class MemberLoginController {
 		return ApiResult.onSuccess("로그아웃 되었습니다.");
 	}
 
-	@PostMapping("/api/v1/member/refresh-token")
+	@PostMapping("/api/v1/auth/refresh-token")
 	public ApiResult<JwtTokenResponse> getJwtToken(@Valid @RequestBody RefreshTokenRequest request) {
 		JwtTokenResponse response = memberLoginService.validateAndRenewToken(request);
 
