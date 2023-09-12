@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import personal.hdproject.member.dao.MemberRepository;
 import personal.hdproject.member.domain.Member;
 import personal.hdproject.member.service.request.CreateMemberServiceRequest;
-import personal.hdproject.util.encryption.Sha256Util;
 import personal.hdproject.util.error.exception.DuplicateEmailException;
 
 @Service
@@ -22,8 +21,7 @@ public class MemberProfileService {
 			throw new DuplicateEmailException("이미 사용 중인 이메일입니다.");
 		}
 
-		String encryptedPassword = getEncryptedPassword(request.getPassword());
-		Member savedMember = memberRepository.save(Member.toEntity(request, encryptedPassword));
+		Member savedMember = memberRepository.save(Member.toEntity(request));
 
 		return savedMember.getId();
 	}
@@ -38,10 +36,6 @@ public class MemberProfileService {
 
 	public void deleteAccount(Long memberId) {
 		memberRepository.deleteById(memberId);
-	}
-
-	private String getEncryptedPassword(String password) {
-		return Sha256Util.getEncrypt(password);
 	}
 
 	private boolean isEmailAlreadyRegistered(String email) {

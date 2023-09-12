@@ -7,11 +7,11 @@ import lombok.Getter;
 public class SignInMemberServiceRequest {
 
 	private final String email;
-	private final String encryptedPassword;
+	private final String password;
 
 	@Builder
-	private SignInMemberServiceRequest(String email, String encryptedPassword) {
+	private SignInMemberServiceRequest(String email, String password) {
 		this.email = email;
-		this.encryptedPassword = encryptedPassword;
+		this.password = password;
 	}
 }

@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import personal.hdproject.member.dao.MemberRepository;
 import personal.hdproject.member.domain.Member;
 import personal.hdproject.member.service.request.CreateMemberServiceRequest;
-import personal.hdproject.util.encryption.Sha256Util;
 import personal.hdproject.util.error.exception.DuplicateEmailException;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -74,14 +73,10 @@ class MemberProfileServiceTest {
 		Long joinedMemberId = memberProfileService.join(createMemberDTO);
 
 		// then
-		String encryptedPassword = Sha256Util.getEncrypt(password);
-
 		Optional<Member> findMemberOptional = memberRepository.findById(joinedMemberId);
 
-		assertThat(password).isNotEqualTo(encryptedPassword);
-
 		findMemberOptional.ifPresentOrElse(
-			findMember -> assertThat(findMember.getPassword()).isEqualTo(encryptedPassword),
+			findMember -> assertThat(findMember.getPassword()).isNotEqualTo(password),
 			() -> fail("Member should be present")
 		);
 	}

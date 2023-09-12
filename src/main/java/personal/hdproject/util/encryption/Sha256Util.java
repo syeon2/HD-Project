@@ -9,17 +9,21 @@ import java.util.stream.IntStream;
 public class Sha256Util {
 	private static final String ENCRYPTION_TYPE = "SHA-256";
 
-	public static String getEncrypt(String source) {
+	public static EncryptedSourceDto getEncryptDto(String source) {
 		String salt = generateSalt();
+		String encryptedSource = getEncryptedSourceWithSalt(source, salt);
 
-		return getEncrypt(source, salt.getBytes());
+		return EncryptedSourceDto.builder()
+			.encryptedSource(encryptedSource)
+			.salt(salt)
+			.build();
 	}
 
-	private static String getEncrypt(String source, byte[] salt) {
+	public static String getEncryptedSourceWithSalt(String source, String salt) {
 		try {
-			byte[] bytes = new byte[source.getBytes().length + salt.length];
 			MessageDigest md = MessageDigest.getInstance(ENCRYPTION_TYPE);
-			byte[] byteData = md.digest(bytes);
+
+			byte[] byteData = md.digest(source.concat(salt).getBytes());
 
 			return IntStream.range(0, byteData.length)
 				.mapToObj(i -> String.format("%02x", byteData[i]))

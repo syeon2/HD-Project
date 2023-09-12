@@ -14,6 +14,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import personal.hdproject.member.service.request.CreateMemberServiceRequest;
+import personal.hdproject.util.encryption.EncryptedSourceDto;
+import personal.hdproject.util.encryption.Sha256Util;
+import personal.hdproject.util.error.exception.LoginException;
 import personal.hdproject.util.wrapper.BaseEntity;
 
 @Getter
@@ -46,25 +49,42 @@ public class Member extends BaseEntity {
 	@Column(columnDefinition = "varchar(40)")
 	private Grade grade;
 
+	@Column(columnDefinition = "varchar(20)")
+	private String salt;
+
 	// TODO: 주문 테이블 - 연관관계 Mapping
 
 	@Builder
-	private Member(String email, String password, String nickname, String phone, String address, Grade grade) {
+	private Member(String email, String password, String nickname, String phone, String address, Grade grade,
+		String salt) {
 		this.email = email;
 		this.password = password;
 		this.nickname = nickname;
 		this.phone = phone;
 		this.address = address;
 		this.grade = grade;
+		this.salt = salt;
 	}
 
-	public static Member toEntity(CreateMemberServiceRequest request, String encryptedPassword) {
+	public static Member toEntity(CreateMemberServiceRequest request) {
+		EncryptedSourceDto encryptDto = Sha256Util.getEncryptDto(request.getPassword());
+
 		return Member.builder()
 			.email(request.getEmail())
-			.password(encryptedPassword)
+			.password(encryptDto.getEncryptedSource())
 			.nickname(request.getNickname())
 			.phone(request.getPhone())
 			.grade(Grade.BASIC)
+			.address(request.getAddress())
+			.salt(encryptDto.getSalt())
 			.build();
+	}
+
+	public void checkPassword(Member member, String password) {
+		String encryptedSource = Sha256Util.getEncryptedSourceWithSalt(password, this.salt);
+
+		if (!member.getPassword().equals(encryptedSource)) {
+			throw new LoginException("비밀번호가 일치하지 않습니다.");
+		}
 	}
 }
