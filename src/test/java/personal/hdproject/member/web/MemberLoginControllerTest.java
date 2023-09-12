@@ -36,7 +36,7 @@ class MemberLoginControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-				post("/api/v1/member/sign-in")
+				post("/api/v1/auth/sign-in")
 					.content(objectMapper.writeValueAsString(request))
 					.contentType(MediaType.APPLICATION_JSON)
 			)
@@ -55,7 +55,7 @@ class MemberLoginControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-				post("/api/v1/member/sign-in")
+				post("/api/v1/auth/sign-in")
 					.content(objectMapper.writeValueAsString(request))
 					.contentType(MediaType.APPLICATION_JSON)
 			)
@@ -75,7 +75,7 @@ class MemberLoginControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-				post("/api/v1/member/sign-in")
+				post("/api/v1/auth/sign-in")
 					.content(objectMapper.writeValueAsString(request))
 					.contentType(MediaType.APPLICATION_JSON)
 			)
@@ -89,7 +89,7 @@ class MemberLoginControllerTest extends BaseTestConfig {
 	void logout() throws Exception {
 		// given  // when  // then
 		mockMvc.perform(
-				post("/api/v1/member/sign-out")
+				post("/api/v1/auth/sign-out")
 			)
 			.andDo(print())
 			.andExpect(status().isOk());
@@ -106,7 +106,7 @@ class MemberLoginControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-				post("/api/v1/member/refresh-token")
+				post("/api/v1/auth/refresh-token")
 					.content(objectMapper.writeValueAsString(request))
 					.contentType(MediaType.APPLICATION_JSON)
 			)
@@ -124,7 +124,7 @@ class MemberLoginControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-				post("/api/v1/member/refresh-token")
+				post("/api/v1/auth/refresh-token")
 					.content(objectMapper.writeValueAsString(request))
 					.contentType(MediaType.APPLICATION_JSON)
 			)
@@ -144,7 +144,7 @@ class MemberLoginControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-				post("/api/v1/member/refresh-token")
+				post("/api/v1/auth/refresh-token")
 					.content(objectMapper.writeValueAsString(request))
 					.contentType(MediaType.APPLICATION_JSON)
 			)

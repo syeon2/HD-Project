@@ -22,7 +22,7 @@ public class MemberLoginService {
 	private final JwtAuthTokenProvider jwtAuthTokenProvider;
 
 	public SignInMemberResponse login(SignInMemberServiceRequest request) {
-		Member member = checkAccountAndGetMember(request.getEmail(), request.getEncryptedPassword());
+		Member member = checkAccountAndGetMember(request.getEmail(), request.getPassword());
 		JwtTokenResponse jwtToken = jwtAuthTokenProvider.generateToken(member.getId());
 
 		return SignInMemberResponse.toResponse(member, jwtToken);
@@ -36,23 +36,17 @@ public class MemberLoginService {
 		return jwtAuthTokenProvider.generateRenewToken(request.getId(), request.getRefreshToken());
 	}
 
-	private Member checkAccountAndGetMember(String email, String encryptedPassword) {
-		Optional<Member> findMemberByEmailOptional = memberRepository.findMemberByEmail(email);
-
-		Member member = checkEmailAndGetMember(findMemberByEmailOptional);
-		checkPassword(member, encryptedPassword);
+	private Member checkAccountAndGetMember(String email, String password) {
+		Member member = checkEmailAndGetMember(email);
+		member.checkPassword(member, password);
 
 		return member;
 	}
 
-	private Member checkEmailAndGetMember(Optional<Member> findMemberByEmailOptional) {
+	private Member checkEmailAndGetMember(String email) {
+		Optional<Member> findMemberByEmailOptional = memberRepository.findMemberByEmail(email);
+
 		return findMemberByEmailOptional
 			.orElseThrow(() -> new LoginException("아이디가 존재하지 않습니다."));
-	}
-
-	private void checkPassword(Member member, String encryptedPassword) {
-		if (!member.getPassword().equals(encryptedPassword)) {
-			throw new LoginException("비밀번호가 일치하지 않습니다.");
-		}
 	}
 }

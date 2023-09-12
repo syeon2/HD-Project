@@ -5,7 +5,6 @@ import javax.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import personal.hdproject.member.service.request.SignInMemberServiceRequest;
-import personal.hdproject.util.encryption.Sha256Util;
 
 @Getter
 public class SignInMemberRequest {
@@ -23,11 +22,9 @@ public class SignInMemberRequest {
 	}
 
 	public SignInMemberServiceRequest toServiceRequest() {
-		String encryptedPassword = Sha256Util.getEncrypt(this.password);
-
 		return SignInMemberServiceRequest.builder()
 			.email(this.email)
-			.encryptedPassword(encryptedPassword)
+			.password(this.password)
 			.build();
 	}
 }
