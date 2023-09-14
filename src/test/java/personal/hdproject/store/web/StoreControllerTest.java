@@ -92,8 +92,8 @@ class StoreControllerTest extends BaseTestConfig {
 		// when  // then
 		mockMvc.perform(
 				get("/api/v1/store/categories/" + storeCategoryId)
-					.queryParam("cursorId", String.valueOf(cursorId))
-					.queryParam("pageSize", String.valueOf(pageSize))
+					.queryParam("cursor_id", String.valueOf(cursorId))
+					.queryParam("page_size", String.valueOf(pageSize))
 			)
 			.andDo(print())
 			.andExpect(status().isOk())

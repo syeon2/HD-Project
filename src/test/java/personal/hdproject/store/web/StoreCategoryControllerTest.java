@@ -51,7 +51,7 @@ class StoreCategoryControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-				get("/api/v1/store-category")
+				get("/api/v1/store-categories")
 			)
 			.andDo(print())
 			.andExpect(status().isOk())

@@ -30,7 +30,7 @@ public class StoreCategoryController {
 		return ApiResult.onSuccess(createdCategoryId);
 	}
 
-	@GetMapping("/api/v1/store-category")
+	@GetMapping("/api/v1/store-categories")
 	public ApiResult<List<StoreCategoryResponse>> findAllStoreCategory() {
 		List<StoreCategoryResponse> findAllStoreCategories = storeCategoryService.findAllStoreCategory();
 

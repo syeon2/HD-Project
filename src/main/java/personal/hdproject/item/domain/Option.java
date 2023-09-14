@@ -17,7 +17,7 @@ import personal.hdproject.util.wrapper.BaseEntity;
 
 @Getter
 @Entity
-@Table(name = "option")
+@Table(name = "options")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Option extends BaseEntity {
 

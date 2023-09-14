@@ -41,8 +41,8 @@ public class StoreController {
 	@GetMapping("/api/v1/store/categories/{storeCategoryId}")
 	public ApiResult<List<StoreResponse>> findStoresByCategoryId(
 		@PathVariable Long storeCategoryId,
-		@RequestParam Long cursorId,
-		@RequestParam Integer pageSize
+		@RequestParam("cursor_id") Long cursorId,
+		@RequestParam("page_size") Integer pageSize
 	) {
 		List<StoreResponse> storeResponses = storeService.findStoreByStoreCategoryId(storeCategoryId, cursorId,
 			pageSize);
