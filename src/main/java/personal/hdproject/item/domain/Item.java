@@ -18,6 +18,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import personal.hdproject.item.service.request.CreateItemServiceRequest;
 import personal.hdproject.store.domain.Store;
 import personal.hdproject.util.wrapper.BaseEntity;
 
@@ -46,7 +47,7 @@ public class Item extends BaseEntity {
 	private Store store;
 
 	@OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
-	private List<Option> optionList = new ArrayList<>();
+	private List<ItemOption> options = new ArrayList<>();
 
 	@Builder
 	private Item(String name, String description, Integer price, Store store) {
@@ -56,8 +57,21 @@ public class Item extends BaseEntity {
 		this.store = store;
 	}
 
-	public void addOption(Option option) {
-		optionList.add(option);
-		option.setItem(this);
+	public void setStore(Store store) {
+		this.store = store;
+	}
+
+	public void addOption(ItemOption itemOption) {
+		options.add(itemOption);
+		itemOption.setItem(this);
+	}
+
+	public static Item toEntity(CreateItemServiceRequest request, Store store) {
+		return Item.builder()
+			.name(request.getName())
+			.description(request.getDescription())
+			.price(request.getPrice())
+			.store(store)
+			.build();
 	}
 }

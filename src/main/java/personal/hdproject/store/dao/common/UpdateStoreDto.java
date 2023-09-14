@@ -1,4 +1,4 @@
-package personal.hdproject.member.dao.common;
+package personal.hdproject.store.dao.common;
 
 import lombok.Builder;
 import lombok.Getter;

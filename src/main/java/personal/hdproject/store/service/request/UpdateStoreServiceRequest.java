@@ -2,7 +2,7 @@ package personal.hdproject.store.service.request;
 
 import lombok.Builder;
 import lombok.Getter;
-import personal.hdproject.member.dao.common.UpdateStoreDto;
+import personal.hdproject.store.dao.common.UpdateStoreDto;
 
 @Getter
 public class UpdateStoreServiceRequest {

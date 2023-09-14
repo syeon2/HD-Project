@@ -11,8 +11,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 
 import lombok.RequiredArgsConstructor;
-import personal.hdproject.member.dao.common.UpdateStoreDto;
 import personal.hdproject.store.dao.common.StoreCustomRepository;
+import personal.hdproject.store.dao.common.UpdateStoreDto;
 import personal.hdproject.store.domain.QStore;
 import personal.hdproject.store.domain.Store;
 
@@ -55,7 +55,8 @@ public class StoreRepositoryImpl implements StoreCustomRepository {
 	}
 
 	private <T> void ifNonNull(T value, Consumer<T> action) {
-		if (value != null)
+		if (value != null) {
 			action.accept(value);
+		}
 	}
 }

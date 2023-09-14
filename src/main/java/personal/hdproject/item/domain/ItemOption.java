@@ -17,13 +17,13 @@ import personal.hdproject.util.wrapper.BaseEntity;
 
 @Getter
 @Entity
-@Table(name = "options")
+@Table(name = "item_option")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Option extends BaseEntity {
+public class ItemOption extends BaseEntity {
 
 	@Id
 	@GeneratedValue
-	@Column(columnDefinition = "option_id")
+	@Column(name = "option_id")
 	private Long id;
 
 	@Column(columnDefinition = "varchar(255)")
@@ -37,7 +37,7 @@ public class Option extends BaseEntity {
 	private Item item;
 
 	@Builder
-	private Option(String name, String description, Item item) {
+	private ItemOption(String name, String description, Item item) {
 		this.name = name;
 		this.description = description;
 		this.item = item;
