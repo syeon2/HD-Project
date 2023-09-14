@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import personal.hdproject.store.service.request.StoreCategoryServiceRequest;
 import personal.hdproject.util.wrapper.BaseEntity;
 
 @Getter
@@ -27,5 +28,9 @@ public class StoreCategory extends BaseEntity {
 
 	public StoreCategory(String name) {
 		this.name = name;
+	}
+
+	public static StoreCategory toEntity(StoreCategoryServiceRequest request) {
+		return new StoreCategory(request.getName());
 	}
 }
