@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import personal.hdproject.BaseTestConfig;
 import personal.hdproject.store.service.StoreService;
 import personal.hdproject.store.web.request.CreateStoreRequest;
+import personal.hdproject.store.web.request.UpdateStoreRequest;
 import personal.hdproject.store.web.response.StoreResponse;
 
 @WebMvcTest(controllers = StoreController.class)
@@ -98,6 +99,30 @@ class StoreControllerTest extends BaseTestConfig {
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.data").isArray());
+	}
+
+	@Test
+	@DisplayName(value = "매장 정보를 업데이트하는 API를 호출합니다.")
+	void updateStoreInfo() throws Exception {
+		// given
+		long storeId = 1L;
+		UpdateStoreRequest request = UpdateStoreRequest.builder()
+			.name("name")
+			.phone("00011112222")
+			.address("서울")
+			.storeCategoryId(1L)
+			.build();
+
+		when(storeService.updateStore(storeId, request.toServiceRequest())).thenReturn(1L);
+
+		// when  // then
+		mockMvc.perform(
+				post("/api/v1/store/" + storeId)
+					.content(objectMapper.writeValueAsString(request))
+					.contentType(MediaType.APPLICATION_JSON)
+			)
+			.andDo(print())
+			.andExpect(status().isOk());
 	}
 
 	@Test

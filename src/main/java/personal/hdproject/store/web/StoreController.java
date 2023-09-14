@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import personal.hdproject.store.service.StoreService;
 import personal.hdproject.store.web.request.CreateStoreRequest;
+import personal.hdproject.store.web.request.UpdateStoreRequest;
 import personal.hdproject.store.web.response.StoreResponse;
 import personal.hdproject.util.wrapper.ApiResult;
 
@@ -48,6 +49,13 @@ public class StoreController {
 			pageSize);
 
 		return ApiResult.onSuccess(storeResponses);
+	}
+
+	@PostMapping("/api/v1/store/{storeId}")
+	public ApiResult<Long> changeStoreInfo(@PathVariable Long storeId, @Valid @RequestBody UpdateStoreRequest request) {
+		Long updateStoreId = storeService.updateStore(storeId, request.toServiceRequest());
+
+		return ApiResult.onSuccess(updateStoreId);
 	}
 
 	@DeleteMapping("/api/v1/store/{id}")
