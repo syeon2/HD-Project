@@ -1,5 +1,6 @@
 package personal.hdproject.member.service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -36,6 +37,11 @@ public class MemberProfileService {
 
 	public void deleteAccount(Long memberId) {
 		memberRepository.deleteById(memberId);
+	}
+
+	public Member findMemberById(Long memberId) {
+		return memberRepository.findById(memberId)
+			.orElseThrow(() -> new NoSuchElementException("회원이 존재하지 않습니다."));
 	}
 
 	private boolean isEmailAlreadyRegistered(String email) {

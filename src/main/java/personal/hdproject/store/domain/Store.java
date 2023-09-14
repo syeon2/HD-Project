@@ -14,6 +14,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import personal.hdproject.member.domain.Member;
+import personal.hdproject.store.service.request.CreateStoreServiceRequest;
 import personal.hdproject.util.wrapper.BaseEntity;
 
 @Getter
@@ -51,5 +52,15 @@ public class Store extends BaseEntity {
 		this.address = address;
 		this.storeCategory = storeCategory;
 		this.member = member;
+	}
+
+	public static Store toEntity(CreateStoreServiceRequest request, StoreCategory storeCategory, Member member) {
+		return Store.builder()
+			.name(request.getName())
+			.phone(request.getPhone())
+			.address(request.getAddress())
+			.storeCategory(storeCategory)
+			.member(member)
+			.build();
 	}
 }
