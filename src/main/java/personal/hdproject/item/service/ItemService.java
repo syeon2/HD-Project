@@ -54,7 +54,9 @@ public class ItemService {
 	}
 
 	public Long updateItem(Long itemId, UpdateItemServiceRequest request) {
-		return itemRepository.updateItem(itemId, request.toUpdateDto());
+		itemRepository.updateItem(itemId, request.toUpdateDto());
+
+		return itemId;
 	}
 
 	public void deleteItem(Long itemId) {
