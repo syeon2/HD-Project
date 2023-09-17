@@ -4,6 +4,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ class MemberRepositoryTest {
 
 	@Autowired
 	private MemberRepository memberRepository;
+
+	@AfterEach
+	void after() {
+		memberRepository.deleteAll();
+	}
 
 	@Test
 	@DisplayName(value = "소비자의 닉네임을 수정합니다.")
