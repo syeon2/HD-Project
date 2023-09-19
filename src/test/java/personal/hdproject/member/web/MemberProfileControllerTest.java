@@ -1,7 +1,11 @@
 package personal.hdproject.member.web;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -10,9 +14,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.payload.JsonFieldType;
 
 import personal.hdproject.BaseTestConfig;
 import personal.hdproject.member.service.MemberProfileService;
+import personal.hdproject.member.service.request.CreateMemberServiceRequest;
 import personal.hdproject.member.web.request.ChangeNicknameRequest;
 import personal.hdproject.member.web.request.ChangePhoneRequest;
 import personal.hdproject.member.web.request.CreateMemberRequest;
@@ -27,6 +33,7 @@ class MemberProfileControllerTest extends BaseTestConfig {
 	@DisplayName(value = "API를 호출하여 새로운 계정을 생성합니다.")
 	void createMember() throws Exception {
 		// given
+		long memberId = 1L;
 		CreateMemberRequest request = CreateMemberRequest.builder()
 			.email("1234@gmail.com")
 			.password("12345678")
@@ -35,6 +42,9 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.address("서울 강남구")
 			.build();
 
+		given(memberProfileService.join(any(CreateMemberServiceRequest.class)))
+			.willReturn(memberId);
+
 		// when  // then
 		mockMvc.perform(
 				post("/api/v1/member")
@@ -42,7 +52,27 @@ class MemberProfileControllerTest extends BaseTestConfig {
 					.contentType(MediaType.APPLICATION_JSON)
 			)
 			.andDo(print())
-			.andExpect(status().isOk());
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.data").value(memberId))
+			.andDo(document("member-join",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("email").type(JsonFieldType.STRING)
+						.description("이메일"),
+					fieldWithPath("password").type(JsonFieldType.STRING)
+						.description("비밀번호"),
+					fieldWithPath("nickname").type(JsonFieldType.STRING)
+						.description("닉네임"),
+					fieldWithPath("phone").type(JsonFieldType.STRING)
+						.description("전화번호"),
+					fieldWithPath("address").type(JsonFieldType.STRING)
+						.description("주소")
+				),
+				responseFields(
+					fieldWithPath("data").type(JsonFieldType.NUMBER)
+						.description("회원가입한 회원 아이디")
+				)));
 	}
 
 	@Test
@@ -66,7 +96,26 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
-			.andExpect(jsonPath("$.message").value("이메일 형식으로 작성해주세요.(ex. xxxx@xxxx.com"));
+			.andExpect(jsonPath("$.message").value("이메일 형식으로 작성해주세요.(ex. xxxx@xxxx.com"))
+			.andDo(document("member-join-exception-email-pattern",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("email").type(JsonFieldType.STRING)
+						.description("이메일"),
+					fieldWithPath("password").type(JsonFieldType.STRING)
+						.description("비밀번호"),
+					fieldWithPath("nickname").type(JsonFieldType.STRING)
+						.description("닉네임"),
+					fieldWithPath("phone").type(JsonFieldType.STRING)
+						.description("전화번호"),
+					fieldWithPath("address").type(JsonFieldType.STRING)
+						.description("주소")
+				),
+				responseFields(
+					fieldWithPath("message").type(JsonFieldType.STRING)
+						.description("exception")
+				)));
 	}
 
 	@Test
@@ -90,7 +139,26 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
-			.andExpect(jsonPath("$.message").isNotEmpty());
+			.andExpect(jsonPath("$.message").isNotEmpty())
+			.andDo(document("member-join-exception-email-empty",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("email").type(JsonFieldType.STRING)
+						.description("이메일"),
+					fieldWithPath("password").type(JsonFieldType.STRING)
+						.description("비밀번호"),
+					fieldWithPath("nickname").type(JsonFieldType.STRING)
+						.description("닉네임"),
+					fieldWithPath("phone").type(JsonFieldType.STRING)
+						.description("전화번호"),
+					fieldWithPath("address").type(JsonFieldType.STRING)
+						.description("주소")
+				),
+				responseFields(
+					fieldWithPath("message").type(JsonFieldType.STRING)
+						.description("exception")
+				)));
 	}
 
 	@Test
@@ -114,7 +182,26 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
-			.andExpect(jsonPath("$.message").value("비밀번호는 최소 8자 이상 작성해주세요"));
+			.andExpect(jsonPath("$.message").value("비밀번호는 최소 8자 이상 작성해주세요"))
+			.andDo(document("member-join-exception-password-min",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("email").type(JsonFieldType.STRING)
+						.description("이메일"),
+					fieldWithPath("password").type(JsonFieldType.STRING)
+						.description("비밀번호"),
+					fieldWithPath("nickname").type(JsonFieldType.STRING)
+						.description("닉네임"),
+					fieldWithPath("phone").type(JsonFieldType.STRING)
+						.description("전화번호"),
+					fieldWithPath("address").type(JsonFieldType.STRING)
+						.description("주소")
+				),
+				responseFields(
+					fieldWithPath("message").type(JsonFieldType.STRING)
+						.description("exception")
+				)));
 	}
 
 	@Test
@@ -138,7 +225,26 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
-			.andExpect(jsonPath("$.message").isNotEmpty());
+			.andExpect(jsonPath("$.message").isNotEmpty())
+			.andDo(document("member-join-exception-password-empty",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("email").type(JsonFieldType.STRING)
+						.description("이메일"),
+					fieldWithPath("password").type(JsonFieldType.STRING)
+						.description("비밀번호"),
+					fieldWithPath("nickname").type(JsonFieldType.STRING)
+						.description("닉네임"),
+					fieldWithPath("phone").type(JsonFieldType.STRING)
+						.description("전화번호"),
+					fieldWithPath("address").type(JsonFieldType.STRING)
+						.description("주소")
+				),
+				responseFields(
+					fieldWithPath("message").type(JsonFieldType.STRING)
+						.description("exception")
+				)));
 	}
 
 	@Test
@@ -162,7 +268,26 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
-			.andExpect(jsonPath("$.message").value("닉네임은 공백을 허용하지 않습니다."));
+			.andExpect(jsonPath("$.message").value("닉네임은 공백을 허용하지 않습니다."))
+			.andDo(document("member-join-exception-nickname-empty",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("email").type(JsonFieldType.STRING)
+						.description("이메일"),
+					fieldWithPath("password").type(JsonFieldType.STRING)
+						.description("비밀번호"),
+					fieldWithPath("nickname").type(JsonFieldType.STRING)
+						.description("닉네임"),
+					fieldWithPath("phone").type(JsonFieldType.STRING)
+						.description("전화번호"),
+					fieldWithPath("address").type(JsonFieldType.STRING)
+						.description("주소")
+				),
+				responseFields(
+					fieldWithPath("message").type(JsonFieldType.STRING)
+						.description("exception")
+				)));
 	}
 
 	@Test
@@ -186,7 +311,26 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
-			.andExpect(jsonPath("$.message").isNotEmpty());
+			.andExpect(jsonPath("$.message").isNotEmpty())
+			.andDo(document("member-join-exception-phone-empty",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("email").type(JsonFieldType.STRING)
+						.description("이메일"),
+					fieldWithPath("password").type(JsonFieldType.STRING)
+						.description("비밀번호"),
+					fieldWithPath("nickname").type(JsonFieldType.STRING)
+						.description("닉네임"),
+					fieldWithPath("phone").type(JsonFieldType.STRING)
+						.description("전화번호"),
+					fieldWithPath("address").type(JsonFieldType.STRING)
+						.description("주소")
+				),
+				responseFields(
+					fieldWithPath("message").type(JsonFieldType.STRING)
+						.description("exception")
+				)));
 	}
 
 	@Test
@@ -210,7 +354,26 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
-			.andExpect(jsonPath("$.message").value("10 ~ 11자리의 숫자만 입력 가능합니다."));
+			.andExpect(jsonPath("$.message").value("10 ~ 11자리의 숫자만 입력 가능합니다."))
+			.andDo(document("member-join-exception-phone-pattern",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("email").type(JsonFieldType.STRING)
+						.description("이메일"),
+					fieldWithPath("password").type(JsonFieldType.STRING)
+						.description("비밀번호"),
+					fieldWithPath("nickname").type(JsonFieldType.STRING)
+						.description("닉네임"),
+					fieldWithPath("phone").type(JsonFieldType.STRING)
+						.description("전화번호"),
+					fieldWithPath("address").type(JsonFieldType.STRING)
+						.description("주소")
+				),
+				responseFields(
+					fieldWithPath("message").type(JsonFieldType.STRING)
+						.description("exception")
+				)));
 	}
 
 	@Test
@@ -234,7 +397,26 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
-			.andExpect(jsonPath("$.message").value("10 ~ 11자리의 숫자만 입력 가능합니다."));
+			.andExpect(jsonPath("$.message").value("10 ~ 11자리의 숫자만 입력 가능합니다."))
+			.andDo(document("member-join-exception-phone-over",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("email").type(JsonFieldType.STRING)
+						.description("이메일"),
+					fieldWithPath("password").type(JsonFieldType.STRING)
+						.description("비밀번호"),
+					fieldWithPath("nickname").type(JsonFieldType.STRING)
+						.description("닉네임"),
+					fieldWithPath("phone").type(JsonFieldType.STRING)
+						.description("전화번호"),
+					fieldWithPath("address").type(JsonFieldType.STRING)
+						.description("주소")
+				),
+				responseFields(
+					fieldWithPath("message").type(JsonFieldType.STRING)
+						.description("exception")
+				)));
 	}
 
 	@Test
@@ -258,7 +440,26 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
-			.andExpect(jsonPath("$.message").value("10 ~ 11자리의 숫자만 입력 가능합니다."));
+			.andExpect(jsonPath("$.message").value("10 ~ 11자리의 숫자만 입력 가능합니다."))
+			.andDo(document("member-join-exception-phone-string",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("email").type(JsonFieldType.STRING)
+						.description("이메일"),
+					fieldWithPath("password").type(JsonFieldType.STRING)
+						.description("비밀번호"),
+					fieldWithPath("nickname").type(JsonFieldType.STRING)
+						.description("닉네임"),
+					fieldWithPath("phone").type(JsonFieldType.STRING)
+						.description("전화번호"),
+					fieldWithPath("address").type(JsonFieldType.STRING)
+						.description("주소")
+				),
+				responseFields(
+					fieldWithPath("message").type(JsonFieldType.STRING)
+						.description("exception")
+				)));
 	}
 
 	@Test
@@ -282,7 +483,26 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
-			.andExpect(jsonPath("$.message").value("주소는 필수 값입니다."));
+			.andExpect(jsonPath("$.message").value("주소는 필수 값입니다."))
+			.andDo(document("member-join-exception-address-require",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("email").type(JsonFieldType.STRING)
+						.description("이메일"),
+					fieldWithPath("password").type(JsonFieldType.STRING)
+						.description("비밀번호"),
+					fieldWithPath("nickname").type(JsonFieldType.STRING)
+						.description("닉네임"),
+					fieldWithPath("phone").type(JsonFieldType.STRING)
+						.description("전화번호"),
+					fieldWithPath("address").type(JsonFieldType.STRING)
+						.description("주소")
+				),
+				responseFields(
+					fieldWithPath("message").type(JsonFieldType.STRING)
+						.description("exception")
+				)));
 	}
 
 	@Test
@@ -292,7 +512,8 @@ class MemberProfileControllerTest extends BaseTestConfig {
 		Long memberId = 1L;
 		ChangeNicknameRequest request = new ChangeNicknameRequest("nickname");
 
-		when(memberProfileService.changeNickname(memberId, "change_nickname")).thenReturn(memberId);
+		given(memberProfileService.changeNickname(anyLong(), anyString()))
+			.willReturn(memberId);
 
 		// when  // then
 		mockMvc.perform(
@@ -301,7 +522,19 @@ class MemberProfileControllerTest extends BaseTestConfig {
 					.contentType(MediaType.APPLICATION_JSON)
 			)
 			.andDo(print())
-			.andExpect(status().isOk());
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.data").value(memberId))
+			.andDo(document("member-update",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("nickname").type(JsonFieldType.STRING)
+						.description("닉네임")
+				),
+				responseFields(
+					fieldWithPath("data").type(JsonFieldType.NUMBER)
+						.description("수정된 회원 아이디")
+				)));
 	}
 
 	@Test
@@ -320,7 +553,18 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
-			.andExpect(jsonPath("$.message").value("닉네임은 공백을 허용하지 않습니다."));
+			.andExpect(jsonPath("$.message").value("닉네임은 공백을 허용하지 않습니다."))
+			.andDo(document("member-update-nickname",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("nickname").type(JsonFieldType.STRING)
+						.description("닉네임")
+				),
+				responseFields(
+					fieldWithPath("message").type(JsonFieldType.STRING)
+						.description("닉네임 예외")
+				)));
 	}
 
 	@Test
@@ -330,7 +574,7 @@ class MemberProfileControllerTest extends BaseTestConfig {
 		Long memberId = 1L;
 		ChangePhoneRequest request = new ChangePhoneRequest("00011112222");
 
-		when(memberProfileService.changePhone(memberId, "00011112222")).thenReturn(memberId);
+		given(memberProfileService.changePhone(anyLong(), anyString())).willReturn(memberId);
 
 		// when  // then
 		mockMvc.perform(
@@ -339,7 +583,19 @@ class MemberProfileControllerTest extends BaseTestConfig {
 					.contentType(MediaType.APPLICATION_JSON)
 			)
 			.andDo(print())
-			.andExpect(status().isOk());
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.data").value(memberId))
+			.andDo(document("member-update-phone",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("phone").type(JsonFieldType.STRING)
+						.description("전화번호")
+				),
+				responseFields(
+					fieldWithPath("data").type(JsonFieldType.NUMBER)
+						.description("수정된 회원 아이디")
+				)));
 	}
 
 	@Test
@@ -358,7 +614,18 @@ class MemberProfileControllerTest extends BaseTestConfig {
 			.andDo(print())
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.data").doesNotExist())
-			.andExpect(jsonPath("$.message").isNotEmpty());
+			.andExpect(jsonPath("$.message").isNotEmpty())
+			.andDo(document("member-update-phone-exception-empty",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("phone").type(JsonFieldType.STRING)
+						.description("전화번호")
+				),
+				responseFields(
+					fieldWithPath("message").type(JsonFieldType.STRING)
+						.description("수정 예외 메시지")
+				)));
 	}
 
 	@Test
@@ -369,9 +636,20 @@ class MemberProfileControllerTest extends BaseTestConfig {
 
 		// when  // then
 		mockMvc.perform(
-				delete("/api/v1/member/" + memberId)
+				delete("/api/v1/member/{member_id}", memberId)
 			)
 			.andDo(print())
-			.andExpect(status().isOk());
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.data").value("계정이 삭제되었습니다."))
+			.andExpect(jsonPath("$.message").doesNotExist())
+			.andDo(document("member-delete",
+				preprocessResponse(prettyPrint()),
+				pathParameters(
+					parameterWithName("member_id").description("회원 아이디")
+				),
+				responseFields(
+					fieldWithPath("data").type(JsonFieldType.STRING)
+						.description("회원 삭제 메시지")
+				)));
 	}
 }

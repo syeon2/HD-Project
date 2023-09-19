@@ -1,0 +1,38 @@
+[[member-login]]
+=== 회원 로그인 API
+
+==== HTTP Request
+
+include::{snippets}/member-login/http-request.adoc[]
+include::{snippets}/member-login/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-login/http-response.adoc[]
+include::{snippets}/member-login/response-fields.adoc[]
+
+[[member-logout]]
+=== 회원 로그아웃 API
+
+==== HTTP Request
+
+include::{snippets}/member-logout/http-request.adoc[]
+
+
+==== HTTP Response
+
+include::{snippets}/member-logout/http-response.adoc[]
+include::{snippets}/member-logout/response-fields.adoc[]
+
+[[Refresh_Token]]
+=== Refresh Token API
+
+==== HTTP Request
+
+include::{snippets}/member-refresh-token/http-request.adoc[]
+include::{snippets}/member-refresh-token/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-refresh-token/http-response.adoc[]
+include::{snippets}/member-refresh-token/response-fields.adoc[]

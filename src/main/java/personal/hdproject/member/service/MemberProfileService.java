@@ -28,11 +28,15 @@ public class MemberProfileService {
 	}
 
 	public Long changeNickname(Long memberId, String nickname) {
-		return memberRepository.updateNickname(memberId, nickname);
+		memberRepository.updateNickname(memberId, nickname);
+
+		return memberId;
 	}
 
 	public Long changePhone(Long memberId, String phone) {
-		return memberRepository.updatePhone(memberId, phone);
+		memberRepository.updatePhone(memberId, phone);
+
+		return memberId;
 	}
 
 	public void deleteAccount(Long memberId) {

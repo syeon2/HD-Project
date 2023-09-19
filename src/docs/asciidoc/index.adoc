@@ -1,0 +1,35 @@
+ifndef::snippets[]
+:snippets: ../../build/generated_snippets
+endif::[]
+= HD-Project API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[Store-Category-API]]
+== Store Category API
+
+include::api/store-category.adoc[]
+
+[[Store-API]]
+== Store API
+
+include::api/store.adoc[]
+
+[[Member-Profile-API]]
+== Member Profile API
+
+include::api/member-profile.adoc[]
+
+[[Member-Login-API]]
+== Member Login API
+
+include::api/member-login.adoc[]
+
+[[Item-API]]
+== Item API
+
+include::api/item.adoc[]

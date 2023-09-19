@@ -1,0 +1,182 @@
+[[member-join]]
+=== 회원 가입
+
+==== HTTP Request
+
+include::{snippets}/member-join/http-request.adoc[]
+include::{snippets}/member-join/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-join/http-response.adoc[]
+include::{snippets}/member-join/response-fields.adoc[]
+
+[[member-join-exception-email-pattern]]
+=== 회원 가입 - 이메일 형식 예외
+
+==== HTTP Request
+
+include::{snippets}/member-join-exception-email-pattern/http-request.adoc
+include::{snippets}/member-join-exception-email-pattern/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-join-exception-email-pattern/http-response.adoc[]
+include::{snippets}/member-join-exception-email-pattern/response-fields.adoc[]
+
+[[member-join-exception-email-empty]]
+=== 회원 가입 - 이메일 데이터 존재 X
+
+==== HTTP Request
+
+include::{snippets}/member-join-exception-email-empty/http-request.adoc
+include::{snippets}/member-join-exception-email-empty/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-join-exception-email-empty/http-response.adoc[]
+include::{snippets}/member-join-exception-email-empty/response-fields.adoc[]
+
+[[member-join-exception-password-min]]
+=== 회원 가입 - 비밀번호 예외(최소 글자 충족 X)
+
+==== HTTP Request
+
+include::{snippets}/member-join-exception-password-min/http-request.adoc
+include::{snippets}/member-join-exception-password-min/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-join-exception-password-min/http-response.adoc[]
+include::{snippets}/member-join-exception-password-min/response-fields.adoc[]
+
+[[member-join-exception-password-empty]]
+=== 회원 가입 - 비밀번호 예외(존재 X)
+
+==== HTTP Request
+
+include::{snippets}/member-join-exception-password-empty/http-request.adoc
+include::{snippets}/member-join-exception-password-empty/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-join-exception-password-empty/http-response.adoc[]
+include::{snippets}/member-join-exception-password-empty/response-fields.adoc[]
+
+[[member-join-exception-nickname-empty]]
+=== 회원 가입 - 닉네임 예외(존재 X)
+
+==== HTTP Request
+
+include::{snippets}/member-join-exception-nickname-empty/http-request.adoc[]
+include::{snippets}/member-join-exception-nickname-empty/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-join-exception-nickname-empty/http-response.adoc[]
+include::{snippets}/member-join-exception-nickname-empty/response-fields.adoc[]
+
+[[member-join-exception-phone-empty]]
+=== 회원 가입 - 전화번호 예외(존재 X)
+
+==== HTTP Request
+
+include::{snippets}/member-join-exception-phone-empty/http-request.adoc[]
+include::{snippets}/member-join-exception-phone-empty/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-join-exception-phone-empty/http-response.adoc[]
+include::{snippets}/member-join-exception-phone-empty/response-fields.adoc[]
+
+[[member-join-exception-phone-pattern]]
+=== 회원 가입 - 전화번호 예외(패턴 X)
+
+==== HTTP Request
+
+include::{snippets}/member-join-exception-phone-pattern/http-request.adoc[]
+include::{snippets}/member-join-exception-phone-pattern/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-join-exception-phone-pattern/http-response.adoc[]
+include::{snippets}/member-join-exception-phone-pattern/response-fields.adoc[]
+
+[[member-join-exception-phone-string]]
+=== 회원 가입 - 전화번호 예외(문자 초과 걍우)
+
+==== HTTP Request
+
+include::{snippets}/member-join-exception-phone-over/http-request.adoc[]
+include::{snippets}/member-join-exception-phone-over/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-join-exception-phone-over/http-response.adoc[]
+include::{snippets}/member-join-exception-phone-over/response-fields.adoc[]
+
+[[member-join-exception-phone-max]]
+=== 회원 가입 - 전화번호 예외(문자 X)
+
+==== HTTP Request
+
+include::{snippets}/member-join-exception-phone-string/http-request.adoc[]
+include::{snippets}/member-join-exception-phone-string/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-join-exception-phone-string/http-response.adoc[]
+include::{snippets}/member-join-exception-phone-string/response-fields.adoc[]
+
+[[member-join-exception-phone-require]]
+=== 회원 가입 - 주소 예외(필수 값)
+
+==== HTTP Request
+
+include::{snippets}/member-join-exception-address-require/http-request.adoc[]
+include::{snippets}/member-join-exception-address-require/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-join-exception-address-require/http-response.adoc[]
+include::{snippets}/member-join-exception-address-require/response-fields.adoc[]
+
+[[member-update-nickname]]
+=== 회원 정보 닉네임 수정
+
+==== HTTP Request
+
+include::{snippets}/member-update-nickname/http-request.adoc[]
+include::{snippets}/member-update-nickname/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-update-nickname/http-response.adoc[]
+include::{snippets}/member-update-nickname/response-fields.adoc[]
+
+[[member-update-phone]]
+=== 회원 정보 전화번호 수정
+
+==== HTTP Request
+
+include::{snippets}/member-update-phone/http-request.adoc[]
+include::{snippets}/member-update-phone/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-update-phone/http-response.adoc[]
+include::{snippets}/member-update-phone/response-fields.adoc[]
+
+[[member-delete]]
+=== 회원 정보 삭제
+
+==== HTTP Request
+
+include::{snippets}/member-delete/http-request.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/member-delete/http-response.adoc[]
+
+
+

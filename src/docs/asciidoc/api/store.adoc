@@ -1,0 +1,61 @@
+[[store-create]]
+=== 매장 생성
+
+==== HTTP Request
+
+include::{snippets}/store-create/http-request.adoc[]
+include::{snippets}/store-create/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/store-create/http-response.adoc[]
+include::{snippets}/store-create/response-fields.adoc[]
+
+[[store-select-by-store-id]]
+=== 매장 아이디를 사용한 매장 조회
+
+==== HTTP Request
+
+include::{snippets}/store-by-store-id-select/http-request.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/store-by-store-id-select/http-response.adoc[]
+include::{snippets}/store-by-store-id-select/response-fields.adoc[]
+
+[[store-select-by-store-category-id]]
+=== 매장 카테고리 아이디를 사용한 매장 조회
+
+==== HTTP Request
+
+include::{snippets}/store-select-by-store-category-id/http-request.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/store-select-by-store-category-id/http-response.adoc[]
+include::{snippets}/store-select-by-store-category-id/response-fields.adoc[]
+
+[[store-update]]
+=== 매장 정보 수정
+
+==== HTTP Request
+
+include::{snippets}/store-update/http-request.adoc[]
+include::{snippets}/store-update/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/store-update/http-response.adoc[]
+include::{snippets}/store-update/response-fields.adoc[]
+
+[[store-delete]]
+=== 매장 삭제
+
+==== HTTP Request
+
+include::{snippets}/store-delete/http-request.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/store-delete/http-response.adoc[]
+include::{snippets}/store-delete/response-fields.adoc[]

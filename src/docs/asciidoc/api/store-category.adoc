@@ -1,0 +1,36 @@
+[[store-category-create]]
+=== 매장 카테고리 생성
+
+==== HTTP Request
+
+include::{snippets}/store-category-create/http-request.adoc[]
+include::{snippets}/store-category-create/request-fields.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/store-category-create/http-response.adoc[]
+include::{snippets}/store-category-create/response-fields.adoc[]
+
+[[store-category-select]]
+=== 모든 매장 카테고리 조회
+
+==== HTTP Request
+
+include::{snippets}/store-category-select/http-request.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/store-category-select/http-response.adoc[]
+include::{snippets}/store-category-select/response-fields.adoc[]
+
+[[store-category-delete]]
+=== 매장 카테고리 삭제
+
+==== HTTP Request
+
+include::{snippets}/store-category-delete/http-request.adoc[]
+
+==== HTTP Response
+
+include::{snippets}/store-category-delete/http-response.adoc[]
+include::{snippets}/store-category-delete/response-fields.adoc[]
