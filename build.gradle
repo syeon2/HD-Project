@@ -93,7 +93,7 @@ asciidoctor {
     configurations 'asciidoctorExt'
 
     sources {
-        ("**/index.adoc")
+        include("**/index.adoc")
     }
 
     baseDirFollowsSourceDir()
