@@ -18,3 +18,9 @@ jwt:
   secret_key: 7c8d3c13bd32be41c39655f87737422920037a5ccf569bf8484511cf5241ceec
   at-expired_minutes: 5
   rt-expired_days: 90
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
