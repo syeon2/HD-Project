@@ -31,5 +31,12 @@ for Database : MySQL, Redis
 
 ### 🌱 프로젝트 Architecture
 
-<img src="https://i.ibb.co/1sH3PrB/hd-project-architecture.png" alt="hd-project-architecture" width="850" />
+<img src="https://i.ibb.co/Fn6xcp7/hd-project-architecture.png" alt="hd-project-architecture" width="850" />
 
+----------
+
+### 🌱 API Document
+
+Spring Rest Docs 라이브러리를 활용하여 API 문서를 제공합니다.
+
+[API 문서](http://ec2-3-39-9-21.ap-northeast-2.compute.amazonaws.com:8080/docs/index.html)
